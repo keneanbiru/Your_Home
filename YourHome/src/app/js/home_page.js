@@ -2,7 +2,13 @@
 
 import { propertyList } from "../data/property.js"
 
+// Add console logs for debugging
+console.log("home_page.js loaded");
+console.log("Property list:", propertyList);
+
 const propertyListComponent=(property)=>{
+    console.log("Creating property card for:", property.propertyName);
+    
     const cardContainer=document.createElement('div')
     const list=document.createElement('div')
     const divider=document.createElement('div')
@@ -80,16 +86,38 @@ const propertyListComponent=(property)=>{
     cardContainer.appendChild(dividerBottom)
     cardContainer.appendChild(propertyBottom)
 
-    document.getElementById('property-lists').appendChild(cardContainer)
+    const propertyListContainer = document.getElementById('property-lists');
+    if (propertyListContainer) {
+        propertyListContainer.appendChild(cardContainer);
+        console.log("Property card added to container");
+    } else {
+        console.error("Property list container not found!");
+    }
 }
 
 // Make sure the DOM is fully loaded before creating the list
 document.addEventListener('DOMContentLoaded', () => {
-    const propertyListContainer = document.getElementById('property-lists')
+    console.log("DOM fully loaded");
+    const propertyListContainer = document.getElementById('property-lists');
     if (propertyListContainer) {
+        console.log("Property list container found");
         // Display first 3 properties without modifying the original array
         propertyList.slice(0,3).forEach((property)=>{
             propertyListComponent(property)
         })
+    } else {
+        console.error("Property list container not found after DOM loaded!");
     }
 })
+
+// Also try to run the code immediately in case DOMContentLoaded already fired
+const propertyListContainer = document.getElementById('property-lists');
+if (propertyListContainer) {
+    console.log("Property list container found immediately");
+    // Display first 3 properties without modifying the original array
+    propertyList.slice(0,3).forEach((property)=>{
+        propertyListComponent(property)
+    })
+} else {
+    console.log("Property list container not found immediately, waiting for DOMContentLoaded");
+}
