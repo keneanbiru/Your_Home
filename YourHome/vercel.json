@@ -4,16 +4,16 @@
     {
       "src": "src/**/*",
       "use": "@vercel/static"
+    },
+    {
+      "src": "assets/**/*",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/",
       "dest": "/src/app/pages/home_page.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/src/app/pages/$1"
     },
     {
       "src": "/assets/(.*)",
@@ -26,6 +26,24 @@
     {
       "src": "/js/(.*)",
       "dest": "/src/app/js/$1"
+    },
+    {
+      "src": "/(.*)\\.html",
+      "dest": "/src/app/pages/$1.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/src/app/pages/$1"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/assets/:path*",
+      "destination": "/assets/:path*"
+    },
+    {
+      "source": "/styles/:path*",
+      "destination": "/src/app/styles/:path*"
     }
   ]
 } 
