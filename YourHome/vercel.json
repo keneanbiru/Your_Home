@@ -8,8 +8,24 @@
   ],
   "routes": [
     {
+      "src": "/",
+      "dest": "/src/app/pages/home_page.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/src/app/pages/$1"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/styles/(.*)",
+      "dest": "/src/app/styles/$1"
+    },
+    {
+      "src": "/js/(.*)",
+      "dest": "/src/app/js/$1"
     }
   ]
 } 
