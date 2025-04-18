@@ -10,33 +10,11 @@
       "use": "@vercel/static"
     }
   ],
-  "routes": [
-    {
-      "src": "/",
-      "dest": "/src/app/pages/home_page.html"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/styles/(.*)",
-      "dest": "/src/app/styles/$1"
-    },
-    {
-      "src": "/js/(.*)",
-      "dest": "/src/app/js/$1"
-    },
-    {
-      "src": "/(.*)\\.html",
-      "dest": "/src/app/pages/$1.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/src/app/pages/$1"
-    }
-  ],
   "rewrites": [
+    {
+      "source": "/",
+      "destination": "/src/app/pages/home_page.html"
+    },
     {
       "source": "/assets/:path*",
       "destination": "/assets/:path*"
@@ -44,6 +22,18 @@
     {
       "source": "/styles/:path*",
       "destination": "/src/app/styles/:path*"
+    },
+    {
+      "source": "/js/:path*",
+      "destination": "/src/app/js/:path*"
+    },
+    {
+      "source": "/:path.html",
+      "destination": "/src/app/pages/:path.html"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/src/app/pages/:path*"
     }
   ]
 } 
