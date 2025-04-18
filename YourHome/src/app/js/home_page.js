@@ -83,7 +83,13 @@ const propertyListComponent=(property)=>{
     document.getElementById('property-lists').appendChild(cardContainer)
 }
 
-// Display first 3 properties without modifying the original array
-propertyList.slice(0,3).forEach((property)=>{
-    propertyListComponent(property)
+// Make sure the DOM is fully loaded before creating the list
+document.addEventListener('DOMContentLoaded', () => {
+    const propertyListContainer = document.getElementById('property-lists')
+    if (propertyListContainer) {
+        // Display first 3 properties without modifying the original array
+        propertyList.slice(0,3).forEach((property)=>{
+            propertyListComponent(property)
+        })
+    }
 })

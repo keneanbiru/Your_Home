@@ -10,7 +10,7 @@ export const propertyList=[
     propertyImage:'/assets/images/property-2.jpg',
     propertyName:'Addisu Gebeya, Addis Ababa, ETH',
     propertyDetail:'',
-    Price:'10000',
+    price:'10000',
     location:'Gulele'
 },
   {

@@ -4,7 +4,7 @@ import { propertyList } from "../app/data/property.js"
 const location = document.getElementById('locate')
 
 
-const propertyListComponent = (imageUrl, name, rootName, id) => {
+const propertyListComponent = (imageUrl, name, rootName, id, price) => {
 
   const cardContainer = document.createElement('div')
   const list = document.createElement('div')
@@ -14,7 +14,7 @@ const propertyListComponent = (imageUrl, name, rootName, id) => {
   const image = document.createElement('img')
   const typography = document.createElement('p')
   const propertyDetail = document.createElement('a')
-  const price = document.createElement('span')
+  const priceElement = document.createElement('span')
   const ratingTitle = document.createElement('span')
   const ratingStar1 = document.createElement('i')
   const ratingStar2 = document.createElement('i')
@@ -29,8 +29,8 @@ const propertyListComponent = (imageUrl, name, rootName, id) => {
 
   propertyBottom.classList.add('card-meta')
 
-  price.innerText = `Price\n 100,000 ETB`
-  price.style.lineHeight = '37px'
+  priceElement.innerText = `Price\n ${price || '100,000'} ETB`
+  priceElement.style.lineHeight = '37px'
 
   ratingTitle.innerText = `Rating`
   ratingStar1.className = 'fa fa-star'
@@ -70,9 +70,9 @@ const propertyListComponent = (imageUrl, name, rootName, id) => {
   typography.classList.add('property-name')
   propertyDetail.innerText = 'Property Detail'
   propertyDetail.classList.add('property-detail')
-  propertyDetail.href ='property_details.html'  
+  propertyDetail.href = `/src/app/pages/property_details.html?property=${encodeURIComponent(name)}`
 
-  propertyBottom.appendChild(price)
+  propertyBottom.appendChild(priceElement)
   propertyBottom.appendChild(ratingStarList)
 
   cardContainer.appendChild(image)
@@ -98,19 +98,28 @@ const listContainer = document.getElementById('property-lists')
 
 const createList = (lists) => {
   lists.map((data, index) => {
-    propertyListComponent(data.propertyImage, data.propertyName, 'property-lists', data.propertyImage)
+    propertyListComponent(
+      data.propertyImage, 
+      data.propertyName, 
+      'property-lists', 
+      data.propertyImage,
+      data.price || data.Price
+    )
   })
 }
 
 
 const removeElement = (elementId) => {
   const element = document.getElementById(elementId)
-  listContainer.removeChild(element)
+  if (element && listContainer) {
+    listContainer.removeChild(element)
+  }
 }
 
 const removeDuplicatedElement = (mainElement) => {
-  while (mainElement.firstChild) mainElement.removeChild(mainElement.firstChild);
-
+  if (mainElement) {
+    while (mainElement.firstChild) mainElement.removeChild(mainElement.firstChild);
+  }
 }
 
 
@@ -130,7 +139,12 @@ location?.addEventListener('input', (e) => {
 })
 
 
-createList(propertyList)
+// Make sure the DOM is fully loaded before creating the list
+document.addEventListener('DOMContentLoaded', () => {
+  if (listContainer) {
+    createList(propertyList)
+  }
+})
 
 
 
